@@ -1,0 +1,125 @@
+import { Link, usePage } from "@inertiajs/react";
+import { Menu, House, FileUser, Newspaper, User } from "lucide-react";
+import { useState, useEffect, useRef } from "react";
+
+export function Navbar() {
+    const [show, setShow] = useState(false);
+    const menuAktif = show ? "top-[26%]" : "-top-[20%]";
+    const handleMenu = () => {
+        setShow(!show);
+    };
+
+    const { url } = usePage();
+    const isActive = (path: string) => url === path;
+
+    const menuRef = useRef<HTMLUListElement | null>(null);
+    useEffect(() => {
+        function handleClickOutside(event: Event) {
+            if (
+                show &&
+                menuRef.current &&
+                !menuRef.current.contains(event.target as Node) &&
+                !(
+                    event.target instanceof Element &&
+                    (event.target.closest('a[href="/"]') ||
+                        event.target.closest('a[href="/profil"]') ||
+                        event.target.closest('a[href="/berita"]') ||
+                        event.target.closest('a[href="/staf"]'))
+                )
+            ) {
+                setShow(false);
+            }
+        }
+
+        function handleScroll() {
+            if (show) {
+                setShow(false);
+            }
+        }
+        document.addEventListener("mousedown", handleClickOutside);
+        window.addEventListener("scroll", handleScroll);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            window.removeEventListener("scroll", handleScroll);
+        };
+    }, [show]);
+
+    return (
+        <div className="navbar font-[poppins] py-6 bg-[#232323] text-white">
+            <div className="container mx-auto px-4">
+                <div className="navbar-box flex items-center justify-between">
+                    <div className="logo">
+                        <Link href="/" className="text-2xl font-bold">
+                            Gereja
+                        </Link>
+                    </div>
+                    <ul
+                        className={`flex lg:gap-10 font-semibold md:static md:flex-row md:shadow-none md:bg-transparent md:w-auto md:h-full md:translate-y-0 md:p-0 md:m-0 md:transition-none gap-8 fixed ${menuAktif} left-0 right-0 -translate-y-1/2 flex-col px-8 py-6 rounded shadow-lg shadow-slate-300 bg-[#232323] transition-all duration-500 items-center text-right`}
+                    >
+                        <li>
+                            <Link
+                                href="/"
+                                className={`flex gap-2 hover:text-gray-400 ${
+                                    isActive("/")
+                                        ? "text-blue-400 underline underline-offset-4"
+                                        : ""
+                                }`}
+                            >
+                                <House className="h-5 w-5" /> Home
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/profil"
+                                className={`flex gap-2 hover:text-gray-400 ${
+                                    isActive("/profil")
+                                        ? "text-blue-400 underline underline-offset-4"
+                                        : ""
+                                }`}
+                            >
+                                <FileUser className="h-5 w-5" /> Profil
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/berita"
+                                className={`flex gap-2 hover:text-gray-400 ${
+                                    isActive("/berita")
+                                        ? "text-blue-400 underline underline-offset-4"
+                                        : ""
+                                }`}
+                            >
+                                <Newspaper className="h-5 w-5" /> Berita
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
+                                href="/staf"
+                                className={`flex gap-2 hover:text-gray-400 ${
+                                    isActive("/staf")
+                                        ? "text-blue-400 underline underline-offset-4"
+                                        : ""
+                                }`}
+                            >
+                                <User className="h-5 w-5" /> Staf
+                            </Link>
+                        </li>
+                    </ul>
+                    <div className="login flex gap-5">
+                        <Link
+                            href="/login"
+                            target="_blank"
+                            className="hover:text-blue-400 hidden md:block"
+                        >
+                            Login
+                        </Link>
+                        <Menu
+                            className="md:hidden cursor-pointer"
+                            onClick={handleMenu}
+                        />
+                    </div>
+                </div>
+            </div>
+        </div>
+    );
+}
