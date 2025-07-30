@@ -39,13 +39,14 @@ export function AgendaSendSms({ data }: { data: Agenda }) {
     };
 
     const getDefaultMessage = (data: Agenda): string => {
-        return `Syalom ...
-Mengingatkan ibadah RT ${data.tempat_ibadah} Pelayan
-${formatTanggal(data.tanggal)}
+        return `Syalom! Selamat pagi dan selamat hari Minggu teman²😇...  Untuk ibadah RT di 
+laksanakan:
+Hari/tgl:${formatTanggal(data.tanggal)}
 Jam: ${data.waktu_ibadah}
+Tempat: ${data.tempat_ibadah}
 PF: ${data.pf}
 PL: ${data.pi}
-Kurre sumanga`;
+Kurre sumanga 🙏 TYM😇`;
     };
 
     const [pesan, setPesan] = useState(getDefaultMessage(data));

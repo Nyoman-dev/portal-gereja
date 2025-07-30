@@ -85,25 +85,32 @@ export default function Home({
                                 selengkapnya
                             </p>
                             <div className="flex gap-1 mt-2">
-                                <div className="p-4 w-full border border-slate-300 text-gray-600 rounded-lg text-sm">
-                                    <h5>{agenda.tanggal}</h5>
-                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
-                                        <div>Tempat Ibadah</div>
-                                        <div>: {agenda.tempat_ibadah}</div>
-                                    </div>
-                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
-                                        <div>Waktu Ibadah</div>
-                                        <div>: {agenda.waktu_ibadah}</div>
-                                    </div>
-                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
-                                        <div>PF</div>
-                                        <div>: {agenda.pf}</div>
-                                    </div>
-                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
-                                        <div>PI</div>
-                                        <div>: {agenda.pi}</div>
-                                    </div>
-                                </div>
+                                {agenda ? (
+  <div className="p-4 w-full border border-slate-300 text-gray-600 rounded-lg text-sm">
+    <h5>{agenda.tanggal}</h5>
+    <div className="grid grid-cols-[120px_auto] gap-x-2">
+      <div>Tempat Ibadah</div>
+      <div>: {agenda.tempat_ibadah}</div>
+    </div>
+    <div className="grid grid-cols-[120px_auto] gap-x-2">
+      <div>Waktu Ibadah</div>
+      <div>: {agenda.waktu_ibadah}</div>
+    </div>
+    <div className="grid grid-cols-[120px_auto] gap-x-2">
+      <div>PF</div>
+      <div>: {agenda.pf}</div>
+    </div>
+    <div className="grid grid-cols-[120px_auto] gap-x-2">
+      <div>PI</div>
+      <div>: {agenda.pi}</div>
+    </div>
+  </div>
+) : (
+  <div className="p-4 w-full border border-slate-300 text-gray-600 rounded-lg text-sm text-center">
+    Tidak ada data.
+  </div>
+)}
+
                             </div>
                             <h2 className="text-xl mb-4 flex gap-2 items-center text-slate-800 mt-10">
                                 Berita Lainnya
