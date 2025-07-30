@@ -14,25 +14,33 @@ import { Label } from "@/Components/ui/label";
 import { toast } from "sonner";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
+import { DatePicker } from "@/Components/date-picker";
 
-export function StafCreate() {
-    const [nama, setNama] = useState("");
-    const [jabatan, setJabatan] = useState("");
-    const [alamat, setAlamat] = useState("");
-    const [telepon, setTelepon] = useState("");
+export function AgendaCreate() {
+    const [tanggal, setTanggal] = useState<Date>();
+    const [tempatIbadah, setTempatIbadah] = useState("");
+    const [waktuIbadah, setWaktuIbadah] = useState("");
+    const [pf, setPf] = useState("");
+    const [pi, setPi] = useState("");
+    const [open, setOpen] = useState(false);
+
     const handleCreate = () => {
-        const formData = new FormData();
-        formData.append("nama", nama);
-        formData.append("jabatan", jabatan);
-        formData.append("alamat", alamat);
-        formData.append("telepon", telepon);
-        router.post("/dashboard/staf", formData, {
+        const formData = {
+            tanggal: tanggal?.toISOString().split("T")[0],
+            tempat_ibadah: tempatIbadah,
+            waktu_ibadah: waktuIbadah,
+            pf,
+            pi,
+        };
+
+        router.post("/dashboard/agenda", formData, {
             preserveScroll: true,
             onStart: () =>
                 toast.loading("Inserting data...", { id: "insert-data" }),
             onSuccess: () => {
                 toast.dismiss("insert-data");
                 toast.success("Data berhasil ditambahkan");
+                setOpen(false);
             },
             onError: (error) => {
                 toast.dismiss("insert-data");
@@ -46,54 +54,50 @@ export function StafCreate() {
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button>Tambah Data</Button>
+                <Button onClick={() => setOpen(true)}>Tambah Data</Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Tambah Staf</DialogTitle>
+                    <DialogTitle>Tambah Agenda</DialogTitle>
                     <DialogDescription>
-                        Make changes to your staf here. Click save when
+                        Make changes to your news here. Click save when
                         you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4">
                     <div className="grid gap-3">
-                        <Label htmlFor="nama">Nama</Label>
+                        <Label>Tanggal</Label>
+                        <DatePicker value={tanggal} onChange={setTanggal} />
+                    </div>
+                    <div className="grid gap-3">
+                        <Label>Tempat Ibadah</Label>
                         <Input
-                            id="nama"
-                            name="nama"
-                            placeholder="Nama"
-                            onChange={(e) => setNama(e.target.value)}
+                            value={tempatIbadah}
+                            onChange={(e) => setTempatIbadah(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="jabatan">Jabatan</Label>
+                        <Label>Jam Ibadah</Label>
                         <Input
-                            id="jabatan"
-                            name="jabatan"
-                            placeholder="Jabatan"
-                            onChange={(e) => setJabatan(e.target.value)}
+                            type="time"
+                            value={waktuIbadah}
+                            onChange={(e) => setWaktuIbadah(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="alamat">Alamat</Label>
+                        <Label>Pelayan Firman</Label>
                         <Input
-                            id="alamat"
-                            name="alamat"
-                            placeholder="Alamat "
-                            onChange={(e) => setAlamat(e.target.value)}
+                            value={pf}
+                            onChange={(e) => setPf(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="telepon">Telepon</Label>
+                        <Label>Pelayan Ibadah</Label>
                         <Input
-                            id="telepon"
-                            name="telepon"
-                            type="number"
-                            placeholder="+62-xxx-xxx-xxx"
-                            onChange={(e) => setTelepon(e.target.value)}
+                            value={pi}
+                            onChange={(e) => setPi(e.target.value)}
                         />
                     </div>
                 </div>

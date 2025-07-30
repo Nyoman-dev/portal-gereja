@@ -4,9 +4,11 @@ namespace App\Http\Controllers\View;
 
 use App\Models\Staf;
 use Inertia\Inertia;
+use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Profil;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
 
 
@@ -24,9 +26,14 @@ class ViewController extends Controller
             ->take(2)
             ->get();
 
+        $today = Carbon::today();
+        $agenda = Agenda::orderByRaw('ABS(DATEDIFF(tanggal, ?))', [$today->toDateString()])
+            ->first();
+
         return Inertia::render('View/home/index', [
             'news' => $news,
-            'berita' => $berita
+            'berita' => $berita,
+            'agenda' => $agenda
         ]);
     }
 
@@ -63,6 +70,14 @@ class ViewController extends Controller
         $id = $request->id;
         $data = Berita::find($id);
         return Inertia::render('View/berita/components/detail', [
+            'data' => $data
+        ]);
+    }
+
+    public function agenda()
+    {
+        $data = Agenda::all();
+        return Inertia::render('View/agenda/index', [
             'data' => $data
         ]);
     }

@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/react";
-import { Menu, House, FileUser, Newspaper, User } from "lucide-react";
+import { Menu, House, FileUser, Newspaper, User, BellPlus } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
 
 export function Navbar() {
@@ -70,6 +70,18 @@ export function Navbar() {
                         </li>
                         <li>
                             <Link
+                                href="/agenda"
+                                className={`flex gap-2 hover:text-gray-400 ${
+                                    isActive("/agenda")
+                                        ? "text-blue-400 underline underline-offset-4"
+                                        : ""
+                                }`}
+                            >
+                                <BellPlus className="h-5 w-5" /> Agenda
+                            </Link>
+                        </li>
+                        <li>
+                            <Link
                                 href="/profil"
                                 className={`flex gap-2 hover:text-gray-400 ${
                                     isActive("/profil")
@@ -106,13 +118,13 @@ export function Navbar() {
                         </li>
                     </ul>
                     <div className="login flex gap-5">
-                        <Link
+                        <a
                             href="/login"
                             target="_blank"
                             className="hover:text-blue-400 hidden md:block"
                         >
                             Login
-                        </Link>
+                        </a>
                         <Menu
                             className="md:hidden cursor-pointer"
                             onClick={handleMenu}

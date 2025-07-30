@@ -3,6 +3,7 @@
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\StafController;
+use App\Http\Controllers\AgendaController;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\ProfilController;
 use App\Http\Controllers\ProfileController;
@@ -13,6 +14,7 @@ Route::get('/berita', [ViewController::class, 'berita'])->name('berita');
 Route::get('/detail', [ViewController::class, 'detail'])->name('detail');
 Route::get('/profil', [ViewController::class, 'profil'])->name('profil');
 Route::get('/staf', [ViewController::class, 'staf'])->name('staf');
+Route::get('/agenda', [ViewController::class, 'agenda'])->name('agenda');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -21,6 +23,8 @@ Route::get('/dashboard', function () {
 Route::resource('/dashboard/profil', ProfilController::class)->middleware('auth');
 Route::resource('/dashboard/berita', BeritaController::class)->middleware('auth');
 Route::resource('/dashboard/staf', StafController::class)->middleware('auth');
+Route::resource('/dashboard/agenda', AgendaController::class)->middleware('auth');
+Route::post('/dashboard/agenda/send', [AgendaController::class, 'sendWatsapp'])->middleware('auth');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

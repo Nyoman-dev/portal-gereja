@@ -11,33 +11,42 @@ import {
 } from "@/Components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/Components/ui/label";
-import { Textarea } from "@/Components/ui/textarea";
 import { toast } from "sonner";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
 import { SquarePen } from "lucide-react";
+import { DatePicker } from "@/Components/date-picker";
 
-type Staf = {
+type Agenda = {
     id: number;
-    nama: string;
-    jabatan: string;
-    alamat: string;
-    telepon: string;
+    tanggal: string;
+    tempat_ibadah: string;
+    waktu_ibadah: string;
+    pf: string;
+    pi: string;
 };
 
-export function ProfilEdit({ data }: { data: Staf }) {
-    const [nama, setNama] = useState(data.nama);
-    const [jabatan, setJabatan] = useState(data.jabatan);
-    const [alamat, setAlamat] = useState(data.alamat);
-    const [telepon, setTelepon] = useState(data.telepon);
+export function AgendaEdit({ data }: { data: Agenda }) {
+    const [tanggal, setTanggal] = useState<Date | undefined>(
+        data.tanggal ? new Date(data.tanggal) : undefined
+    );
+    const [tempatIbadah, setTempatIbadah] = useState(data.tempat_ibadah);
+    const [waktuIbadah, setWaktuIbadah] = useState(data.waktu_ibadah);
+    const [pf, setPf] = useState(data.pf);
+    const [pi, setPi] = useState(data.pi);
+    const [open, setOpen] = useState(false);
+
     const handleUpdate = () => {
-        const formData = new FormData();
-        formData.append("_method", "put");
-        formData.append("nama", nama);
-        formData.append("jabatan", jabatan);
-        formData.append("alamat", alamat);
-        formData.append("telepon", telepon);
-        router.post("/dashboard/staf/" + data.id, formData, {
+        const formData = {
+            tanggal: tanggal?.toISOString().split("T")[0],
+            tempat_ibadah: tempatIbadah,
+            waktu_ibadah: waktuIbadah,
+            pf,
+            pi,
+            _method: "put",
+        };
+
+        router.post("/dashboard/agenda/" + data.id, formData, {
             forceFormData: true,
             preserveScroll: true,
             onStart: () =>
@@ -45,6 +54,7 @@ export function ProfilEdit({ data }: { data: Staf }) {
             onSuccess: () => {
                 toast.dismiss("update-data");
                 toast.success("Data berhasil diperbarui");
+                setOpen(false);
             },
             onError: (error) => {
                 toast.dismiss("update-data");
@@ -58,60 +68,56 @@ export function ProfilEdit({ data }: { data: Staf }) {
     };
 
     return (
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger asChild>
-                <Button>
+                <Button
+                    onClick={() => setOpen(true)}
+                    variant="outline"
+                    className="px-2"
+                >
                     <SquarePen></SquarePen>
                 </Button>
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Tambah Staf</DialogTitle>
+                    <DialogTitle>Edit Agenda</DialogTitle>
                     <DialogDescription>
-                        Make changes to your staf here. Click save when
+                        Make changes to your news here. Click save when
                         you&apos;re done.
                     </DialogDescription>
                 </DialogHeader>
                 <div className="grid gap-4">
                     <div className="grid gap-3">
-                        <Label htmlFor="nama">Nama</Label>
+                        <Label>Tanggal</Label>
+                        <DatePicker value={tanggal} onChange={setTanggal} />
+                    </div>
+                    <div className="grid gap-3">
+                        <Label>Tempat Ibadah</Label>
                         <Input
-                            id="nama"
-                            name="nama"
-                            value={nama}
-                            placeholder="Nama"
-                            onChange={(e) => setNama(e.target.value)}
+                            value={tempatIbadah}
+                            onChange={(e) => setTempatIbadah(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="jabatan">Jabatan</Label>
+                        <Label>Jam Ibadah</Label>
                         <Input
-                            id="jabatan"
-                            name="jabatan"
-                            value={jabatan}
-                            placeholder="Jabatan"
-                            onChange={(e) => setJabatan(e.target.value)}
+                            type="time"
+                            value={waktuIbadah}
+                            onChange={(e) => setWaktuIbadah(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="alamat">Alamat</Label>
+                        <Label>Pelayan Firman</Label>
                         <Input
-                            id="alamat"
-                            name="alamat"
-                            value={alamat}
-                            placeholder="Alamat "
-                            onChange={(e) => setAlamat(e.target.value)}
+                            value={pf}
+                            onChange={(e) => setPf(e.target.value)}
                         />
                     </div>
                     <div className="grid gap-3">
-                        <Label htmlFor="telepon">Telepon</Label>
+                        <Label>Pelayan Ibadah</Label>
                         <Input
-                            id="telepon"
-                            name="telepon"
-                            value={telepon}
-                            type="number"
-                            placeholder="+62-xxx-xxx-xxx"
-                            onChange={(e) => setTelepon(e.target.value)}
+                            value={pi}
+                            onChange={(e) => setPi(e.target.value)}
                         />
                     </div>
                 </div>

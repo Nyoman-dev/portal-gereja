@@ -1,13 +1,7 @@
 import { Head } from "@inertiajs/react";
 import { Navbar } from "../components/Navbar";
 import { Footer } from "../components/Footer";
-import {
-    Bookmark,
-    Instagram,
-    MapPinned,
-    Send,
-    CalendarClock,
-} from "lucide-react";
+import { Bookmark, Send, CalendarClock } from "lucide-react";
 import { Link } from "@inertiajs/react";
 
 type Berita = {
@@ -18,12 +12,22 @@ type Berita = {
     tanggal: string;
 };
 
+type Agenda = {
+    tanggal: string;
+    tempat_ibadah: string;
+    waktu_ibadah: string;
+    pf: string;
+    pi: string;
+};
+
 export default function Home({
     news,
     berita,
+    agenda,
 }: {
     news: Berita;
     berita: Berita[];
+    agenda: Agenda;
 }) {
     function truncateChars(text: string, maxChars: number) {
         return text.length > maxChars ? text.slice(0, maxChars) + "..." : text;
@@ -74,31 +78,32 @@ export default function Home({
                         </div>
                         <div className="mt-10 md:mt-20 p-4">
                             <h2 className="text-xl mb-4 flex gap-2 items-center text-slate-800">
-                                <Send></Send>Stay Connected
+                                <Send></Send>Agenda Kegiatan
                             </h2>
                             <p className="text-gray-500 text-sm">
-                                Kunjungi halaman berikut untuk informasi
+                                Kunjungi halaman kami untuk informasi
                                 selengkapnya
                             </p>
-                            <div className="flex gap-1">
-                                <a
-                                    href="https://www.instagram.com/"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="bg-black text-white w-14 h-14 rounded-lg hover:bg-gray-700 hover:text-gray-200 flex items-center justify-center mt-4 transition-colors duration-300"
-                                    aria-label="Instagram"
-                                >
-                                    <Instagram />
-                                </a>
-                                <a
-                                    href="https://maps.app.goo.gl/UvgS55t6emB8kKtK6"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="bg-black text-white w-14 h-14 rounded-lg hover:bg-gray-700 hover:text-gray-200 flex items-center justify-center mt-4 transition-colors duration-300"
-                                    aria-label="Instagram"
-                                >
-                                    <MapPinned></MapPinned>
-                                </a>
+                            <div className="flex gap-1 mt-2">
+                                <div className="p-4 w-full border border-slate-300 text-gray-600 rounded-lg text-sm">
+                                    <h5>{agenda.tanggal}</h5>
+                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
+                                        <div>Tempat Ibadah</div>
+                                        <div>: {agenda.tempat_ibadah}</div>
+                                    </div>
+                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
+                                        <div>Waktu Ibadah</div>
+                                        <div>: {agenda.waktu_ibadah}</div>
+                                    </div>
+                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
+                                        <div>PF</div>
+                                        <div>: {agenda.pf}</div>
+                                    </div>
+                                    <div className="grid grid-cols-[120px_auto] gap-x-2">
+                                        <div>PI</div>
+                                        <div>: {agenda.pi}</div>
+                                    </div>
+                                </div>
                             </div>
                             <h2 className="text-xl mb-4 flex gap-2 items-center text-slate-800 mt-10">
                                 Berita Lainnya
@@ -110,15 +115,7 @@ export default function Home({
                             <div className="mt-5 flex gap-4 justify-between md:flex-col">
                                 {berita.length === 0 ? (
                                     <div className="flex gap-4">
-                                        <div className="h-20 w-20 bg-black"></div>
-                                        <div>
-                                            <p className="text-lg text-slate-700 font-medium">
-                                                Judul Berita
-                                            </p>
-                                            <p className="text-sm text-slate-400">
-                                                2 Maret 2023
-                                            </p>
-                                        </div>
+                                        Belum ada berita lainnya...
                                     </div>
                                 ) : (
                                     berita.map((item) => (

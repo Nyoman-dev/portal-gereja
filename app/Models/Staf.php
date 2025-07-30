@@ -11,6 +11,5 @@ class Staf extends Model
         'jabatan',
         'alamat',
         'telepon',
-        'kode_jabatan'
     ];
 }

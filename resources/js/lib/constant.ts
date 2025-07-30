@@ -1,4 +1,10 @@
-import { LayoutDashboard, School, Newspaper, User } from "lucide-react";
+import {
+    LayoutDashboard,
+    School,
+    Newspaper,
+    User,
+    BellPlus,
+} from "lucide-react";
 
 interface NavItem {
     title: string;
@@ -12,6 +18,11 @@ export const data = {
             title: "Dashboard",
             url: "/dashboard",
             icon: LayoutDashboard,
+        },
+        {
+            title: "Agenda",
+            url: "/dashboard/agenda",
+            icon: BellPlus,
         },
         {
             title: "Profil",

@@ -35,7 +35,6 @@ class StafController extends Controller
             'jabatan' => 'required|string',
             'alamat' => 'required|string',
             'telepon' => 'required|numeric',
-            'kode_jabatan' => 'required|numeric',
         ]);
         Staf::create($validated);
     }
@@ -66,7 +65,6 @@ class StafController extends Controller
             'jabatan' => 'required|string',
             'alamat' => 'required|string',
             'telepon' => 'required|numeric',
-            'kode_jabatan' => 'required|numeric',
         ]);
         Staf::where('id', $staf->id)->update($validated);
     }
