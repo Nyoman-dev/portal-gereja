@@ -40,7 +40,7 @@ export default function Home({
             <div className="flex flex-col min-h-screen font-[poppins]">
                 <div className="container mx-auto px-4 py-8">
                     <h1 className="md:text-4xl text-3xl font-bold mb-4">
-                        Welcome to the Home Page
+                        Warta gereja Toraja Jemaat Masakke
                     </h1>
                     <p className="md:text-lg text-gray-700">
                         Temukan informasi yang anda butuhkan di sini
