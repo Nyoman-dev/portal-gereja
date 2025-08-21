@@ -8,13 +8,13 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/Components/ui/label";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
-import { DatePicker } from "@/Components/date-picker";
+import { DatePicker } from "@/components/date-picker";
 
 export function AgendaCreate() {
     const [tanggal, setTanggal] = useState<Date>();

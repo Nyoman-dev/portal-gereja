@@ -1,6 +1,6 @@
-import Header from "@/Components/Header";
-import TheSidebar from "@/Components/MainSidebar";
-import { SidebarInset, SidebarProvider } from "@/Components/ui/sidebar";
+import Header from "@/components/Header";
+import TheSidebar from "@/components/MainSidebar";
+import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
 import { usePage } from "@inertiajs/react";
 import { PropsWithChildren, ReactNode } from "react";
 import { Toaster } from "sonner";

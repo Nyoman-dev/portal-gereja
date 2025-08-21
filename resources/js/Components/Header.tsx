@@ -5,7 +5,7 @@ import {
     BreadcrumbList,
     BreadcrumbPage,
     BreadcrumbSeparator,
-} from "@/Components/ui/breadcrumb";
+} from "@/components/ui/breadcrumb";
 import { SidebarTrigger } from "./ui/sidebar";
 import { formatBreadcrumbText } from "@/lib/utils";
 import { usePage } from "@inertiajs/react";

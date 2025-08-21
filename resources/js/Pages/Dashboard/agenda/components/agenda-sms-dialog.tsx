@@ -8,14 +8,14 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/Components/ui/label";
+import { Label } from "@/components/ui/label";
 import { toast } from "sonner";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
 import { Mails } from "lucide-react";
-import { Textarea } from "@/Components/ui/textarea";
+import { Textarea } from "@/components/ui/textarea";
 
 type Agenda = {
     id: number;

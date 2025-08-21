@@ -8,7 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
     DialogTrigger,
-} from "@/Components/ui/dialog";
+} from "@/components/ui/dialog";
 import { Trash2 } from "lucide-react";
 import { router } from "@inertiajs/react";
 import { toast } from "sonner";

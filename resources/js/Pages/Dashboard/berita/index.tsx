@@ -12,7 +12,7 @@ import {
     DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
-} from "@/Components/ui/drawer";
+} from "@/components/ui/drawer";
 
 type Berita = {
     id: number;

@@ -1,4 +1,4 @@
-import { Avatar, AvatarImage, AvatarFallback } from "@/Components/ui/avatar";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
     Sidebar,
     SidebarContent,
@@ -12,12 +12,12 @@ import {
     SidebarMenuSub,
     SidebarMenuSubButton,
     SidebarMenuSubItem,
-} from "@/Components/ui/sidebar";
+} from "@/components/ui/sidebar";
 import {
     Collapsible,
     CollapsibleContent,
     CollapsibleTrigger,
-} from "@/Components/ui/collapsible";
+} from "@/components/ui/collapsible";
 import {
     DropdownMenu,
     DropdownMenuContent,
@@ -25,7 +25,7 @@ import {
     DropdownMenuLabel,
     DropdownMenuSeparator,
     DropdownMenuTrigger,
-} from "@/Components/ui/dropdown-menu";
+} from "@/components/ui/dropdown-menu";
 import { ChevronRight, ChevronsUpDown, LogOut, Tent } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Link, usePage } from "@inertiajs/react";
