@@ -1,6 +1,7 @@
 import { Link, usePage } from "@inertiajs/react";
 import { Menu, House, FileUser, Newspaper, User, BellPlus } from "lucide-react";
 import { useState, useEffect, useRef } from "react";
+import { Button } from "@/components/ui/button";
 
 export function Navbar() {
     const [show, setShow] = useState(false);
@@ -45,11 +46,14 @@ export function Navbar() {
     }, [show]);
 
     return (
-        <div className="navbar font-[poppins] py-6 bg-[#232323] text-white">
-            <div className="container mx-auto px-4">
+        <div className="navbar font-[poppins] py-6 bg-[#06141A] text-white">
+            <div className="mx-20 px-4">
                 <div className="navbar-box flex items-center justify-between">
                     <div className="logo">
-                        <Link href="/" className="text-2xl font-bold">
+                        <Link
+                            href="/"
+                            className="text-2xl font-bold text-[#FF6934]"
+                        >
                             Gereja
                         </Link>
                     </div>
@@ -61,7 +65,7 @@ export function Navbar() {
                                 href="/"
                                 className={`flex gap-2 hover:text-gray-400 ${
                                     isActive("/")
-                                        ? "text-blue-400 underline underline-offset-4"
+                                        ? "text-[#FF6934] underline underline-offset-4"
                                         : ""
                                 }`}
                             >
@@ -73,7 +77,7 @@ export function Navbar() {
                                 href="/agenda"
                                 className={`flex gap-2 hover:text-gray-400 ${
                                     isActive("/agenda")
-                                        ? "text-blue-400 underline underline-offset-4"
+                                        ? "text-[#FF6934] underline underline-offset-4"
                                         : ""
                                 }`}
                             >
@@ -85,7 +89,7 @@ export function Navbar() {
                                 href="/profil"
                                 className={`flex gap-2 hover:text-gray-400 ${
                                     isActive("/profil")
-                                        ? "text-blue-400 underline underline-offset-4"
+                                        ? "text-[#FF6934] underline underline-offset-4"
                                         : ""
                                 }`}
                             >
@@ -97,7 +101,7 @@ export function Navbar() {
                                 href="/berita"
                                 className={`flex gap-2 hover:text-gray-400 ${
                                     isActive("/berita")
-                                        ? "text-blue-400 underline underline-offset-4"
+                                        ? "text-[#FF6934] underline underline-offset-4"
                                         : ""
                                 }`}
                             >
@@ -109,7 +113,7 @@ export function Navbar() {
                                 href="/staf"
                                 className={`flex gap-2 hover:text-gray-400 ${
                                     isActive("/staf")
-                                        ? "text-blue-400 underline underline-offset-4"
+                                        ? "text-[#FF6934] underline underline-offset-4"
                                         : ""
                                 }`}
                             >
@@ -118,13 +122,15 @@ export function Navbar() {
                         </li>
                     </ul>
                     <div className="login flex gap-5">
-                        <a
-                            href="/login"
-                            target="_blank"
-                            className="hover:text-blue-400 hidden md:block"
-                        >
-                            Login
-                        </a>
+                        <Button className="bg-[#FF6934]">
+                            <a
+                                href="/login"
+                                target="_blank"
+                                className="hover:text-[#FF6934] hidden md:block"
+                            >
+                                Login
+                            </a>
+                        </Button>
                         <Menu
                             className="md:hidden cursor-pointer"
                             onClick={handleMenu}

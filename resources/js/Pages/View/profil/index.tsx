@@ -14,13 +14,16 @@ export default function Profil({ data }: { data: Profil[] }) {
         <>
             <Navbar />
             <Head title="Profil" />
-            <div className="flex flex-col min-h-screen font-[poppins]">
+            <div className="flex flex-col min-h-screen mx-20 font-[poppins]">
                 <div className="container mx-auto px-4 py-8">
                     <h1 className=" font-bold text-3xl py-8">Profil Gereja</h1>
                 </div>
                 <section className="bg-[#F9F6E8]">
-                    {data.map((item) => (
-                        <div className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0">
+                    {data.map((item, index) => (
+                        <div
+                            key={index}
+                            className="max-w-7xl mx-auto px-6 flex flex-col md:flex-row items-center md:items-start gap-8 md:gap-0"
+                        >
                             <div className="md:w-1/2 text-[#29581F] font-bold">
                                 <h2 className="font-anton text-slate-900 text-[32px] sm:text-[36px] md:text-[40px] leading-tight mb-4">
                                     {item.judul}

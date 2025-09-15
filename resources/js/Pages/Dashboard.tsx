@@ -1,7 +1,15 @@
-import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
-import { Head } from '@inertiajs/react';
+import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import { Head } from "@inertiajs/react";
+import { ChartBarInteractive } from "@/components/Chart";
 
-export default function Dashboard() {
+type Laporan = {
+    id: number;
+    keterangan: string;
+    tanggal: string;
+    total_masuk: string;
+    total_keluar: string;
+};
+export default function Dashboard({ laporans }: { laporans: Laporan[] }) {
     return (
         <AuthenticatedLayout
             header={
@@ -18,6 +26,7 @@ export default function Dashboard() {
                         <div className="p-6 text-gray-900">
                             You're logged in!
                         </div>
+                        <ChartBarInteractive laporans={laporans} />
                     </div>
                 </div>
             </div>

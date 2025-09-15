@@ -4,6 +4,8 @@ import {
     Newspaper,
     User,
     BellPlus,
+    HeartHandshake,
+    NotebookTabs,
 } from "lucide-react";
 
 interface NavItem {
@@ -20,6 +22,11 @@ export const data = {
             icon: LayoutDashboard,
         },
         {
+            title: "Laporan Keuangan",
+            url: "/dashboard/laporan-keuangan",
+            icon: NotebookTabs,
+        },
+        {
             title: "Agenda",
             url: "/dashboard/agenda",
             icon: BellPlus,
@@ -33,6 +40,11 @@ export const data = {
             title: "Berita",
             url: "/dashboard/berita",
             icon: Newspaper,
+        },
+        {
+            title: "Renungan",
+            url: "/dashboard/renungan",
+            icon: HeartHandshake,
         },
         {
             title: "Staf",

@@ -15,19 +15,19 @@ import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
 import { router } from "@inertiajs/react";
 import { useState } from "react";
+import { DatePicker } from "@/components/date-picker";
 
-export function BeritaCreate() {
+export function RenunganCreate() {
     const [judul, setJudul] = useState("");
-    const [gambar, setGambar] = useState<File | null>(null);
     const [deskripsi, setDeskripsi] = useState("");
+    const [tanggal, setTanggal] = useState<Date>();
+
     const handleCreate = () => {
         const formData = new FormData();
         formData.append("judul", judul);
-        if (gambar) {
-            formData.append("gambar", gambar);
-        }
         formData.append("deskripsi", deskripsi);
-        router.post("/dashboard/berita", formData, {
+        formData.append("tanggal", tanggal?.toISOString().split("T")[0] ?? "");
+        router.post("/dashboard/renungan", formData, {
             preserveScroll: true,
             onStart: () =>
                 toast.loading("Inserting data...", { id: "insert-data" }),
@@ -53,7 +53,7 @@ export function BeritaCreate() {
             </DialogTrigger>
             <DialogContent className="sm:max-w-[425px]">
                 <DialogHeader>
-                    <DialogTitle>Tambah Berita</DialogTitle>
+                    <DialogTitle>Tambah Renungan</DialogTitle>
                     <DialogDescription>
                         Make changes to your news here. Click save when
                         you&apos;re done.
@@ -61,29 +61,16 @@ export function BeritaCreate() {
                 </DialogHeader>
                 <div className="grid gap-4">
                     <div className="grid gap-3">
+                        <Label>Tanggal</Label>
+                        <DatePicker value={tanggal} onChange={setTanggal} />
+                    </div>
+                    <div className="grid gap-3">
                         <Label htmlFor="judul">Judul</Label>
                         <Input
                             id="judul"
                             name="judul"
                             placeholder="Judul"
                             onChange={(e) => setJudul(e.target.value)}
-                        />
-                    </div>
-                    <div className="grid gap-3">
-                        <Label htmlFor="gambar">Gambar</Label>
-                        <Input
-                            id="gambar"
-                            name="gambar"
-                            type="file"
-                            accept="image/*"
-                            onChange={(e) => {
-                                if (
-                                    e.target.files &&
-                                    e.target.files.length > 0
-                                ) {
-                                    setGambar(e.target.files[0]);
-                                }
-                            }}
                         />
                     </div>
                     <div className="grid gap-3">

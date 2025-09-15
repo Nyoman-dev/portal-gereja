@@ -25,11 +25,12 @@ export default function Berita({
         <>
             <Navbar />
             <Head title="Berita" />
-            <div className="flex flex-col min-h-screen font-[poppins]">
+            <div className="mx-20 flex flex-col min-h-screen font-[poppins]">
                 <div className="container mx-auto px-4 py-8">
                     <div className="mt-10">
-                        <h2 className="text-2xl flex gap-2 items-center border-b-2 border-slate-300 pb-5">
-                            <Bookmark></Bookmark>Berita Terkini
+                        <h2 className="text-2xl flex gap-2 items-center border-b-2 border-slate-300 pb-5 font-semibold">
+                            <Bookmark className="text-[#FD6B35]" />
+                            Berita Terkini
                         </h2>
                         <div className="mt-10">
                             <img
@@ -42,7 +43,7 @@ export default function Berita({
                                     {news.judul}
                                 </p>
                                 <p className="flex gap-1 text-sm text-slate-500">
-                                    <CalendarClock className="w-4 h-4" />{" "}
+                                    <CalendarClock className="w-4 h-4 text-[#FD6B35]" />{" "}
                                     {news.tanggal}
                                 </p>
                                 <p className=" text-slate-500">
@@ -85,7 +86,7 @@ export default function Berita({
                                             {item.judul}
                                         </p>
                                         <p className="flex gap-1 text-sm text-slate-500">
-                                            <CalendarClock className="w-4 h-4" />{" "}
+                                            <CalendarClock className="w-4 h-4 text-[#FD6B35]" />{" "}
                                             {item.tanggal}
                                         </p>
                                         <p className=" text-slate-500">

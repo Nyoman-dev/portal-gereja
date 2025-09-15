@@ -3,7 +3,7 @@ import { House, FileUser, Newspaper, User, Tent } from "lucide-react";
 
 export function Footer() {
     return (
-        <div className="footer mt-20 font-[poppins] py-20 bg-[#232323] text-white">
+        <div className="footer mt-20 font-[poppins] py-20 bg-[#06141A] text-white">
             <div className="container mx-auto px-4">
                 <div className="footer-box flex justify-around">
                     <div className="logo w-1/2">
@@ -11,8 +11,8 @@ export function Footer() {
                             href="/"
                             className="text-3xl font-bold flex gap-2 items-center"
                         >
-                            <Tent className="w-8 h-8"></Tent> Gereja Toraja
-                            Jemaat Masakke
+                            <Tent className="w-8 h-8 text-[#FD6B35]"></Tent>{" "}
+                            Gereja Toraja Jemaat Masakke
                         </Link>
                         <p className="mt-10">
                             Gereja Toraja Jemaat Masakke adalah salah satu

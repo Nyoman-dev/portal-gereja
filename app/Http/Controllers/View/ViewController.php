@@ -7,6 +7,7 @@ use Inertia\Inertia;
 use App\Models\Agenda;
 use App\Models\Berita;
 use App\Models\Profil;
+use App\Models\Renungan;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use App\Http\Controllers\Controller;
@@ -30,10 +31,20 @@ class ViewController extends Controller
         $agenda = Agenda::orderByRaw('ABS(DATEDIFF(tanggal, ?))', [$today->toDateString()])
             ->first();
 
+        $image = Berita::query()
+            ->select('gambar')
+            ->get();
+
+        $renungan = Renungan::query()
+            ->orderBy('created_at', 'desc')
+            ->first();
+
         return Inertia::render('View/home/index', [
             'news' => $news,
             'berita' => $berita,
-            'agenda' => $agenda
+            'agenda' => $agenda,
+            'image' => $image,
+            'renungan' => $renungan
         ]);
     }
 
