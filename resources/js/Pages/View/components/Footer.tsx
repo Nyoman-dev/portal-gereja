@@ -20,6 +20,13 @@ export function Footer() {
                             sebuah denominasi Kristen Protestan yang berpusat di
                             Tana Toraja, Sulawesi selatan.
                         </p>
+                        <iframe
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2349.5983156973007!2d120.2147749913956!3d-2.860830091071926!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2d916306f1f178c9%3A0x6ea4606fdb25f469!2sGereja%20Toraja%20Jemaat%20Masakke!5e1!3m2!1sid!2sid!4v1758116178709!5m2!1sid!2sid"
+                            width="400"
+                            height="300"
+                            style={{ border: "0" }}
+                            loading="lazy"
+                        ></iframe>
                     </div>
                     <ul className={`flex flex-col gap-4`}>
                         <h2 className="text-2xl font-bold">Navigation</h2>
