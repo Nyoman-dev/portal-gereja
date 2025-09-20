@@ -26,7 +26,7 @@ Route::get('/dashboard', function () {
         DB::raw('SUM(COALESCE(masuk,0)) as total_masuk'),
         DB::raw('SUM(COALESCE(keluar,0)) as total_keluar')
     )
-        ->groupBy('tanggal')
+        ->groupBy(DB::raw("DATE_FORMAT(tanggal, '%Y-%m')"))
         ->orderBy('tanggal', 'asc')
         ->get();
 
