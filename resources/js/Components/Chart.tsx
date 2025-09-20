@@ -37,6 +37,7 @@ type Laporan = {
 };
 
 export function ChartBarInteractive({ laporans }: { laporans: Laporan[] }) {
+    console.log(laporans);
     const chartData = React.useMemo(
         () =>
             laporans.map((lap) => ({
@@ -110,7 +111,6 @@ export function ChartBarInteractive({ laporans }: { laporans: Laporan[] }) {
                                 const date = new Date(value);
                                 return date.toLocaleDateString("id-ID", {
                                     month: "short",
-                                    day: "numeric",
                                 });
                             }}
                         />

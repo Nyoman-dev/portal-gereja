@@ -38,27 +38,18 @@ type Laporan = {
 
 export function LaporanEdit({ data }: { data: Laporan }) {
     const [keterangan, setKeterangan] = useState(data.keterangan);
-    const [nominal, setNominal] = useState("");
-    const [jenis, setJenis] = useState("");
+    const [masuk, setMasuk] = useState(data.masuk);
+    const [keluar, setKeluar] = useState(data.keluar);
     const [tanggal, setTanggal] = useState<Date | undefined>(
         data.tanggal ? new Date(data.tanggal) : undefined
     );
-    useEffect(() => {
-        if (data.masuk !== null) {
-            setNominal(data.masuk);
-            setJenis("total_masuk");
-        } else if (data.keluar !== null) {
-            setNominal(data.keluar);
-            setJenis("total_keluar");
-        }
-    }, [data]);
 
     const handleUpdate = () => {
         const formData = new FormData();
         formData.append("_method", "put");
         formData.append("keterangan", keterangan);
-        formData.append("nominal", nominal);
-        formData.append("jenis", jenis);
+        formData.append("masuk", masuk);
+        formData.append("keluar", keluar);
         formData.append("tanggal", tanggal?.toISOString().split("T")[0] ?? "");
 
         router.post("/dashboard/laporan-keuangan/" + data.id, formData, {
@@ -109,39 +100,25 @@ export function LaporanEdit({ data }: { data: Laporan }) {
                             onChange={(e) => setKeterangan(e.target.value)}
                         />
                         <div className="grid gap-3">
-                            <Label htmlFor="jenis">Jenis</Label>
-                            <Select
-                                name="jenis"
-                                value={jenis}
-                                onValueChange={setJenis}
-                            >
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Pilih jenis" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>
-                                            Keterangan Jenis
-                                        </SelectLabel>
-                                        <SelectItem value="masuk">
-                                            Masuk
-                                        </SelectItem>
-                                        <SelectItem value="keluar">
-                                            Keluar
-                                        </SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="grid gap-3">
-                            <Label htmlFor="nominal">Nominal</Label>
+                            <Label htmlFor="masuk">Masuk</Label>
                             <Input
-                                id="nominal"
-                                name="nominal"
+                                id="masuk"
+                                name="masuk"
                                 type="number"
                                 placeholder="Rp. 0"
-                                value={nominal}
-                                onChange={(e) => setNominal(e.target.value)}
+                                value={masuk}
+                                onChange={(e) => setMasuk(e.target.value)}
+                            />
+                        </div>
+                        <div className="grid gap-3">
+                            <Label htmlFor="keluar">Keluar</Label>
+                            <Input
+                                id="keluar"
+                                name="keluar"
+                                type="number"
+                                placeholder="Rp. 0"
+                                value={keluar}
+                                onChange={(e) => setKeluar(e.target.value)}
                             />
                         </div>
                     </div>

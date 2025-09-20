@@ -11,9 +11,26 @@ class LaporanKeuanganController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $query = Laporan::orderBy('tanggal', 'asc')->get();
+        if (!$request->search) {
+            // jika tidak ada request search, jangan ambil data apapun
+            return inertia('Dashboard/laporan-keuangan/index', [
+                'data' => [],
+                'totalMasuk' => 0,
+                'totalKeluar' => 0,
+            ]);
+        }
+        if (Carbon::parse($request->search)->format('m Y') == date('m Y')) {
+            $tanggal = Carbon::parse($request->search)->format('m Y');
+        } else {
+            $tanggal = date('m Y', strtotime($request->search . ' +1 day'));
+        }
+        [$bulan, $tahun] = explode(' ', $tanggal);
+        $query = Laporan::orderBy('tanggal', 'asc')
+            ->whereMonth('tanggal', $bulan)
+            ->whereYear('tanggal', $tahun)
+            ->get();
         $totalMasuk = $query->sum('masuk');
         $totalKeluar = $query->sum('keluar');
 
@@ -42,12 +59,12 @@ class LaporanKeuanganController extends Controller
         } else {
             $tanggal = date('Y-m-d', strtotime($request['tanggal'] . ' +1 day'));
         }
-        $jenis = $request['jenis'];
+
         Laporan::create([
             'tanggal' => $tanggal,
             'keterangan' => $request['keterangan'],
-            'masuk' => $jenis == 'masuk' ? $request['nominal'] : null,
-            'keluar' => $jenis == 'keluar' ? $request['nominal'] : null,
+            'masuk' => $request['masuk'],
+            'keluar' => $request['keluar'],
         ]);
     }
 
@@ -74,13 +91,12 @@ class LaporanKeuanganController extends Controller
         } else {
             $tanggal = date('Y-m-d', strtotime($request['tanggal'] . ' +1 day'));
         }
-        $jenis = $request['jenis'];
 
         Laporan::where('id', $id)->update([
             'tanggal' => $tanggal,
             'keterangan' => $request['keterangan'],
-            'masuk' => $jenis == 'masuk' ? $request['nominal'] : null,
-            'keluar' => $jenis == 'keluar' ? $request['nominal'] : null,
+            'masuk' => $request['masuk'],
+            'keluar' => $request['keluar'],
         ]);
     }
 

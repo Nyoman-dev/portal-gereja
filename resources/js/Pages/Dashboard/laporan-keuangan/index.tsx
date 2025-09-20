@@ -4,7 +4,6 @@ import { Monitor } from "lucide-react";
 import { LaporanCreate } from "./components/laporan-create-dialog";
 import { LaporanEdit } from "./components/laporan-edit-dialog";
 import { LaporanDelete } from "./components/laporan-delete-dialog";
-import { useState } from "react";
 import {
     Table,
     TableBody,
@@ -13,6 +12,10 @@ import {
     TableHeader,
     TableRow,
 } from "@/components/ui/table";
+import { MonthPicker } from "@/components/month-picker";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { router } from "@inertiajs/react";
 
 type Laporan = {
     id: number;
@@ -35,11 +38,23 @@ export default function BeritaIndex({
     totalMasuk: number;
     totalKeluar: number;
 }) {
+    const [tanggal, setTanggal] = useState<Date>();
     const convertToRupiah = (number: number) => {
         return new Intl.NumberFormat("id-ID", {
             style: "currency",
             currency: "IDR",
         }).format(number);
+    };
+
+    const searchHandler = () => {
+        router.get(
+            `/dashboard/laporan-keuangan`,
+            { search: tanggal },
+            {
+                preserveState: true,
+                preserveScroll: true,
+            }
+        );
     };
 
     return (
@@ -56,20 +71,10 @@ export default function BeritaIndex({
                         <Monitor className="size-6 text-zinc-500" />
                         <h1 className="text-xl">Laporan Keuangan</h1>
                     </div>
-                    {/* <div className="flex items-center gap-x-2">
-                        <DateRangePicker
-                            from={filterState.from}
-                            to={filterState.to}
-                            key={`periode-${key}`}
-                            onSelect={(from, to) => {
-                                handleFilterChange("from", from);
-                                handleFilterChange("to", to);
-                            }}
-                            placeholder="Pilih Tanggal"
-                            className="bg-black text-white"
-                        />
-                        <Button>Cari Data</Button>
-                    </div> */}
+                    <div className="flex items-center gap-x-2">
+                        <MonthPicker value={tanggal} onChange={setTanggal} />
+                        <Button onClick={searchHandler}>Cari Data</Button>
+                    </div>
                 </div>
                 <div className="overflow-x-auto">
                     <Table>
@@ -89,7 +94,38 @@ export default function BeritaIndex({
                             </TableRow>
                         </TableHeader>
                         <TableBody>
-                            {data.map((item, index) => (
+                            {data.length === 0 ? (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={5}
+                                        className="text-center"
+                                    >
+                                        Filter data dahulu!!.
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                data.map((item, index) => (
+                                    <TableRow key={index}>
+                                        <TableCell>{item.tanggal}</TableCell>
+                                        <TableCell>{item.keterangan}</TableCell>
+                                        <TableCell className="text-right">
+                                            {convertToRupiah(
+                                                Number(item.masuk || 0)
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="text-right">
+                                            {convertToRupiah(
+                                                Number(item.keluar || 0)
+                                            )}
+                                        </TableCell>
+                                        <TableCell className="flex gap-x-2 justify-center">
+                                            <LaporanEdit data={item} />
+                                            <LaporanDelete data={item} />
+                                        </TableCell>
+                                    </TableRow>
+                                ))
+                            )}
+                            {/* {data.map((item, index) => (
                                 <TableRow key={index}>
                                     <TableCell>{item.tanggal}</TableCell>
                                     <TableCell>{item.keterangan}</TableCell>
@@ -108,7 +144,7 @@ export default function BeritaIndex({
                                         <LaporanDelete data={item} />
                                     </TableCell>
                                 </TableRow>
-                            ))}
+                            ))} */}
 
                             <TableRow className="font-bold">
                                 <TableCell colSpan={2} className="text-center">

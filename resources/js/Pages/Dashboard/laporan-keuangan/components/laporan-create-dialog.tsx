@@ -29,14 +29,14 @@ import {
 export function LaporanCreate() {
     const [tanggal, setTanggal] = useState<Date>();
     const [keterangan, setKeterangan] = useState("");
-    const [nominal, setNominal] = useState("");
-    const [jenis, setJenis] = useState("");
+    const [masuk, setMasuk] = useState("");
+    const [keluar, setKeluar] = useState("");
 
     const handleCreate = () => {
         const formData = new FormData();
         formData.append("keterangan", keterangan);
-        formData.append("nominal", nominal);
-        formData.append("jenis", jenis);
+        formData.append("masuk", masuk);
+        formData.append("keluar", keluar);
         formData.append("tanggal", tanggal?.toISOString().split("T")[0] ?? "");
         router.post("/dashboard/laporan-keuangan", formData, {
             preserveScroll: true,
@@ -82,34 +82,23 @@ export function LaporanCreate() {
                             onChange={(e) => setKeterangan(e.target.value)}
                         />
                         <div className="grid gap-3">
-                            <Label htmlFor="jenis">Jenis</Label>
-                            <Select name="jenis" onValueChange={setJenis}>
-                                <SelectTrigger className="w-full">
-                                    <SelectValue placeholder="Pilih jenis" />
-                                </SelectTrigger>
-                                <SelectContent>
-                                    <SelectGroup>
-                                        <SelectLabel>
-                                            Keterangan Jenis
-                                        </SelectLabel>
-                                        <SelectItem value="masuk">
-                                            Mausk
-                                        </SelectItem>
-                                        <SelectItem value="keluar">
-                                            Keluar
-                                        </SelectItem>
-                                    </SelectGroup>
-                                </SelectContent>
-                            </Select>
-                        </div>
-                        <div className="grid gap-3">
-                            <Label htmlFor="nominal">Nominal</Label>
+                            <Label htmlFor="nominal">Masuk</Label>
                             <Input
-                                id="nominal"
-                                name="nominal"
+                                id="masuk"
+                                name="masuk"
                                 type="number"
                                 placeholder="Rp. 0"
-                                onChange={(e) => setNominal(e.target.value)}
+                                onChange={(e) => setMasuk(e.target.value)}
+                            />
+                        </div>
+                        <div className="grid gap-3">
+                            <Label htmlFor="nominal">Keluar</Label>
+                            <Input
+                                id="keluar"
+                                name="keluar"
+                                type="number"
+                                placeholder="Rp. 0"
+                                onChange={(e) => setKeluar(e.target.value)}
                             />
                         </div>
                     </div>

@@ -22,7 +22,7 @@ Route::get('/agenda', [ViewController::class, 'agenda'])->name('agenda');
 
 Route::get('/dashboard', function () {
     $laporans = Laporan::select(
-        'tanggal',
+        DB::raw("DATE_FORMAT(tanggal, '%Y-%m') as tanggal"),
         DB::raw('SUM(COALESCE(masuk,0)) as total_masuk'),
         DB::raw('SUM(COALESCE(keluar,0)) as total_keluar')
     )
