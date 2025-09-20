@@ -3,7 +3,7 @@ import { House, FileUser, Newspaper, User, Tent } from "lucide-react";
 
 export function Footer() {
     return (
-        <div className="footer mt-20 font-[poppins] py-20 bg-[#06141A] text-white">
+        <div className="footer mt-20 font-[poppins] py-20 bg-[#1a546d] text-white">
             <div className="container mx-auto px-4">
                 <div className="footer-box flex justify-around">
                     <div className="logo w-1/2">

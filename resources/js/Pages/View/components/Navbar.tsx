@@ -46,7 +46,7 @@ export function Navbar() {
     }, [show]);
 
     return (
-        <div className="navbar font-[poppins] py-6 bg-[#06141A] text-white">
+        <div className="navbar font-[poppins] py-6 bg-[#1a546d] text-white">
             <div className="mx-20 px-4">
                 <div className="navbar-box flex items-center justify-between">
                     <div className="logo">
